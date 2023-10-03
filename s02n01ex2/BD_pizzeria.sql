@@ -71,17 +71,12 @@ CREATE TABLE IF NOT EXISTS `pizzeria`.`Clientes` (
   `direccion` VARCHAR(255) NOT NULL,
   `codigoPostal` VARCHAR(10) NOT NULL,
   `telefono` VARCHAR(15) NOT NULL,
-  `idLocalidad` INT NULL DEFAULT NULL,
-  `idProvincia` INT NULL DEFAULT NULL,
+  `idLocalidad` INT NOT NULL,
   PRIMARY KEY (`idCliente`),
   INDEX `idLocalidad_idx` (`idLocalidad` ASC) VISIBLE,
-  INDEX `idProvincias_idx` (`idProvincia` ASC) VISIBLE,
   CONSTRAINT `idLocalidad`
     FOREIGN KEY (`idLocalidad`)
-    REFERENCES `pizzeria`.`Localidades` (`idLocalidad`),
-  CONSTRAINT `idProvincia`
-    FOREIGN KEY (`idProvincia`)
-    REFERENCES `pizzeria`.`Provincias` (`idProvincia`))
+    REFERENCES `pizzeria`.`Localidades` (`idLocalidad`))
 ENGINE = InnoDB
 AUTO_INCREMENT = 7
 DEFAULT CHARACTER SET = utf8mb4
@@ -140,7 +135,6 @@ CREATE TABLE IF NOT EXISTS `pizzeria`.`Pedidos` (
   `idCliente` INT NULL DEFAULT NULL,
   `idProducto` INT NULL DEFAULT NULL,
   `idLocalidad` INT NULL DEFAULT NULL,
-  `idProvincia` INT NULL DEFAULT NULL,
   `idEmpleadoRepartidor` INT NULL DEFAULT NULL,
   `precioTotal` DECIMAL(10,2) NOT NULL,
   PRIMARY KEY (`idPedido`),
@@ -148,7 +142,6 @@ CREATE TABLE IF NOT EXISTS `pizzeria`.`Pedidos` (
   INDEX `idProducto_idx` (`idProducto` ASC) VISIBLE,
   INDEX `idLocalidad_idx` (`idLocalidad` ASC) VISIBLE,
   INDEX `idLocalidadP_idx` (`idLocalidad` ASC) VISIBLE,
-  INDEX `idProvinciaP_idx` (`idProvincia` ASC) VISIBLE,
   INDEX `idEmpleadoRepartidor_idx` (`idEmpleadoRepartidor` ASC) VISIBLE,
   CONSTRAINT `idCliente`
     FOREIGN KEY (`idCliente`)
@@ -161,10 +154,7 @@ CREATE TABLE IF NOT EXISTS `pizzeria`.`Pedidos` (
     REFERENCES `pizzeria`.`Localidades` (`idLocalidad`),
   CONSTRAINT `idProducto`
     FOREIGN KEY (`idProducto`)
-    REFERENCES `pizzeria`.`Productos` (`idProducto`),
-  CONSTRAINT `idProvinciaP`
-    FOREIGN KEY (`idProvincia`)
-    REFERENCES `pizzeria`.`Provincias` (`idProvincia`))
+    REFERENCES `pizzeria`.`Productos` (`idProducto`))
 ENGINE = InnoDB
 AUTO_INCREMENT = 14
 DEFAULT CHARACTER SET = utf8mb4
@@ -179,16 +169,11 @@ CREATE TABLE IF NOT EXISTS `pizzeria`.`Tiendas` (
   `direccionTienda` VARCHAR(255) NOT NULL,
   `codigoPostal` VARCHAR(10) NOT NULL,
   `idLocalidad` INT NULL DEFAULT NULL,
-  `idProvincia` INT NULL DEFAULT NULL,
   PRIMARY KEY (`idTienda`),
   INDEX `idLocalidadT_idx` (`idLocalidad` ASC) VISIBLE,
-  INDEX `idProvinciaT_idx` (`idProvincia` ASC) VISIBLE,
   CONSTRAINT `idLocalidadT`
     FOREIGN KEY (`idLocalidad`)
-    REFERENCES `pizzeria`.`Localidades` (`idLocalidad`),
-  CONSTRAINT `idProvinciaT`
-    FOREIGN KEY (`idProvincia`)
-    REFERENCES `pizzeria`.`Provincias` (`idProvincia`))
+    REFERENCES `pizzeria`.`Localidades` (`idLocalidad`))
 ENGINE = InnoDB
 AUTO_INCREMENT = 13
 DEFAULT CHARACTER SET = utf8mb4
